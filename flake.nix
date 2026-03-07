@@ -3,11 +3,21 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     flake-parts.url = "github:hercules-ci/flake-parts";
-    import-true.url = "github:vic/import-tree";
+    import-tree.url = "github:vic/import-tree";
   };
 
   outputs = inputs:
-    inputs.flake-parts.lib.mkFlake { inherit inputs; } 
-    	(inputs.import-tree .modules);
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
+
+          systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+        "aarch64-darwin"
+      ];
+
+imports = [
+  (inputs.import-tree ./modules)
+];
+	};
 
 }

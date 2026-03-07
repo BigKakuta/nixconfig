@@ -18,7 +18,7 @@
         "type": "github"
       }
     },
-    "import-true": {
+    "import-tree": {
       "locked": {
         "lastModified": 1772344373,
         "narHash": "sha256-OQQ1MhB9t1J71b2wxRRTdH/Qd8UGG0p+dGspfCf5U1c=",
@@ -67,7 +67,7 @@
     "root": {
       "inputs": {
         "flake-parts": "flake-parts",
-        "import-true": "import-true",
+        "import-tree": "import-tree",
         "nixpkgs": "nixpkgs"
       }
     }

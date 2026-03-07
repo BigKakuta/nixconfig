@@ -3,7 +3,7 @@
 
 		programs.firefox.enable = true;
 
-		enviroment.systemPackages = with pkgs; [
+		environment.systemPackages = with pkgs; [
 			vim
 		];
 		
