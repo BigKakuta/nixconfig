@@ -1,15 +1,15 @@
 {
-  description = "A very basic flake";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    import-true.url = "github:vic/import-tree";
   };
 
-  outputs = { self, nixpkgs }: {
+  outputs = inputs:
 
-    packages.x86_64-linux.hello = nixpkgs.legacyPackages.x86_64-linux.hello;
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
 
-    packages.x86_64-linux.default = self.packages.x86_64-linux.hello;
+    };
 
-  };
 }
