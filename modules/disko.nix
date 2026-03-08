@@ -1,5 +1,5 @@
-{ ... }: {
-  flake.diskoConfiguration.myMachineModule = {
+ {
+  flake.diskoConfigurations.myMachineModule = {
     disko.devices = {
       disk.main = {
         device = "/dev/nvme0n1";

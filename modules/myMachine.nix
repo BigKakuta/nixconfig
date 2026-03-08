@@ -10,7 +10,7 @@
 
   flake.nixosModules.myMachineModule = { ... }: {
   imports = [
-	inputs.disko.nixosModules.disk
+	inputs.disko.nixosModules.disko
 	self.diskoConfigurations.myMachineModule
   ];
 boot.loader.grub.enable = true;
