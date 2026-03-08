@@ -9,8 +9,13 @@
   };
 
   flake.nixosModules.myMachineModule = { ... }: {
-    boot.loader.grub.enable = true;
+   boot.loader = {
+    systemd-boot = enabled {
+      editor = false;
+    };
 
+    efi.canTouchEfiVariables = true;
+  };
     users.users.nixos = {
       isNormalUser = true;
       extraGroups = [ "wheel" ];
