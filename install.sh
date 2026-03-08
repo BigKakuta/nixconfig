@@ -45,7 +45,7 @@ lsblk "$DISK"
 echo
 echo "Partitioning disk..."
 parted "$DISK" --script -- mklabel gpt
-parted "$DISK" --script -- mkpart "BIOS boot" 1MiB 2MiB
+parted "$DISK" --script -- mkpart bios_boot 1MiB 2MiB
 parted "$DISK" --script -- set 1 bios_grub on
 parted "$DISK" --script -- mkpart ESP fat32 2MiB 514MiB
 parted "$DISK" --script -- set 2 esp on
