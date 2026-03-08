@@ -13,11 +13,9 @@
 	inputs.disko.nixosModules.disko
 	self.diskoConfigurations.myMachineModule
   ];
-boot.loader.grub.enable = true;
-boot.loader.grub.efiSupport = true;
-boot.loader.grub.device = "nodev";
-
-boot.loader.efi.canTouchEfiVariables = true;    users.users.nixos = {
+boot.loader.systemd-boot.enable = true;
+boot.loader.efi.canTouchEfiVariables = true;   
+users.users.nixos = {
       isNormalUser = true;
       extraGroups = [ "wheel" ];
       openssh.authorizedKeys.keys = [
