@@ -9,14 +9,11 @@
   };
 
   flake.nixosModules.myMachineModule = { ... }: {
-   boot.loader = {
-    systemd-boot = enabled {
-      editor = false;
-    };
+boot.loader.grub.enable = true;
+boot.loader.grub.efiSupport = true;
+boot.loader.grub.device = "nodev";
 
-    efi.canTouchEfiVariables = true;
-  };
-    users.users.nixos = {
+boot.loader.efi.canTouchEfiVariables = true;    users.users.nixos = {
       isNormalUser = true;
       extraGroups = [ "wheel" ];
       openssh.authorizedKeys.keys = [
