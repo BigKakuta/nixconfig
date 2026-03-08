@@ -44,19 +44,16 @@ lsblk "$DISK"
 
 echo
 echo "Partitioning disk..."
-parted "$DISK" --script -- mklabel gpt
-parted "$DISK" --script -- mkpart bios_boot 1MiB 2MiB
-parted "$DISK" --script -- set 1 bios_grub on
-parted "$DISK" --script -- mkpart ESP fat32 2MiB 514MiB
-parted "$DISK" --script -- set 2 esp on
-parted "$DISK" --script -- set 2 boot on
-parted "$DISK" --script -- mkpart Nix 514MiB 100%
+sgdisk --zap-all "$DISK"
+sgdisk -n 1:1MiB:2MiB -t 1:ef02 -c 1:"disk-main-boot" "$DISK"
+sgdisk -n 2:2MiB:514MiB -t 2:ef00 -c 2:"disk-main-ESP" "$DISK"
+sgdisk -n 3:514MiB:0 -t 3:8300 -c 3:"disk-main-nix" "$DISK"
 
 echo
 echo "Partitioning complete."
 echo "Updated disk layout:"
 lsblk "$DISK"
-parted "$DISK" --script print
+sgdisk -p "$DISK"
 
 echo
 echo "Creating filesystems..."
