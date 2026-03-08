@@ -1,8 +1,22 @@
 #!/usr/bin/env bash
 
+# Copyright (c) 2023 Eric Cheng
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+
 set -euo pipefail
 
 DISK="/dev/nvme0n1"
+DISK_BOOT_PARTITION="/dev/nvme0n1p1"
+DISK_NIX_PARTITION="/dev/nvme0n1p2"
 
 if [ "$(uname)" != "Linux" ]; then
   echo "This script only supports Linux."
@@ -40,3 +54,19 @@ echo "Partitioning complete."
 echo "Updated disk layout:"
 lsblk "$DISK"
 parted "$DISK" --script print
+
+echo
+echo "Creating filesystems..."
+mkfs.fat -F32 -n boot "$DISK_BOOT_PARTITION"
+mkfs.ext4 -F -L nix "$DISK_NIX_PARTITION"
+
+echo
+echo "Mounting filesystems..."
+mkdir -p /mnt/boot /mnt/nix
+mount "$DISK_BOOT_PARTITION" /mnt/boot
+mount "$DISK_NIX_PARTITION" /mnt/nix
+
+echo
+echo "Mounts complete:"
+findmnt /mnt/boot
+findmnt /mnt/nix
