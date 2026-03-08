@@ -15,8 +15,9 @@
 set -euo pipefail
 
 DISK="/dev/nvme0n1"
-DISK_BOOT_PARTITION="/dev/nvme0n1p1"
-DISK_NIX_PARTITION="/dev/nvme0n1p2"
+DISK_BIOS_PARTITION="/dev/nvme0n1p1"
+DISK_BOOT_PARTITION="/dev/nvme0n1p2"
+DISK_NIX_PARTITION="/dev/nvme0n1p3"
 
 if [ "$(uname)" != "Linux" ]; then
   echo "This script only supports Linux."
@@ -44,10 +45,12 @@ lsblk "$DISK"
 echo
 echo "Partitioning disk..."
 parted "$DISK" --script -- mklabel gpt
-parted "$DISK" --script -- mkpart ESP fat32 1MiB 512MiB
-parted "$DISK" --script -- set 1 esp on
-parted "$DISK" --script -- set 1 boot on
-parted "$DISK" --script -- mkpart Nix 512MiB 100%
+parted "$DISK" --script -- mkpart "BIOS boot" 1MiB 2MiB
+parted "$DISK" --script -- set 1 bios_grub on
+parted "$DISK" --script -- mkpart ESP fat32 2MiB 514MiB
+parted "$DISK" --script -- set 2 esp on
+parted "$DISK" --script -- set 2 boot on
+parted "$DISK" --script -- mkpart Nix 514MiB 100%
 
 echo
 echo "Partitioning complete."
