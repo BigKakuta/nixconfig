@@ -9,6 +9,10 @@
   };
 
   flake.nixosModules.myMachineModule = { ... }: {
+  imports = [
+	inputs.disko.nixosModules.disk
+	self.diskoConfigurations.myMachineModule
+  ];
 boot.loader.grub.enable = true;
 boot.loader.grub.efiSupport = true;
 boot.loader.grub.device = "nodev";
