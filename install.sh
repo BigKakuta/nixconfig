@@ -45,9 +45,9 @@ lsblk "$DISK"
 echo
 echo "Partitioning disk..."
 sgdisk --zap-all "$DISK"
-sgdisk -n 1:1MiB:2MiB -t 1:ef02 -c 1:"disk-main-boot" "$DISK"
-sgdisk -n 2:2MiB:514MiB -t 2:ef00 -c 2:"disk-main-ESP" "$DISK"
-sgdisk -n 3:514MiB:0 -t 3:8300 -c 3:"disk-main-nix" "$DISK"
+sgdisk -n 1:1MiB:+1MiB -t 1:ef02 -c 1:"disk-main-boot" "$DISK"
+sgdisk -n 2:0:+512MiB -t 2:ef00 -c 2:"disk-main-ESP" "$DISK"
+sgdisk -n 3:0:0 -t 3:8300 -c 3:"disk-main-nix" "$DISK"
 
 echo
 echo "Partitioning complete."
