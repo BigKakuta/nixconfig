@@ -17,7 +17,7 @@ set -euo pipefail
 DISK="/dev/nvme0n1"
 DISK_BIOS_PARTITION="/dev/nvme0n1p1"
 DISK_BOOT_PARTITION="/dev/nvme0n1p2"
-DISK_NIX_PARTITION="/dev/nvme0n1p3"
+DISK_ROOT_PARTITION="/dev/nvme0n1p4"
 
 if [ "$(uname)" != "Linux" ]; then
   echo "This script only supports Linux."
@@ -47,7 +47,7 @@ echo "Partitioning disk..."
 sgdisk --zap-all "$DISK"
 sgdisk -n 1:1MiB:+1MiB -t 1:ef02 -c 1:"disk-main-boot" "$DISK"
 sgdisk -n 2:0:+512MiB -t 2:ef00 -c 2:"disk-main-ESP" "$DISK"
-sgdisk -n 3:0:0 -t 3:8300 -c 3:"disk-main-nix" "$DISK"
+sgdisk -n 3:0:0 -t 3:8300 -c 3:"disk-main-root" "$DISK"
 
 echo
 echo "Partitioning complete."
@@ -58,15 +58,15 @@ sgdisk -p "$DISK"
 echo
 echo "Creating filesystems..."
 mkfs.fat -F32 -n boot "$DISK_BOOT_PARTITION"
-mkfs.ext4 -F -L nix "$DISK_NIX_PARTITION"
+mkfs.ext4 -F -L nix "$DISK_ROOT_PARTITION"
 
 echo
 echo "Mounting filesystems..."
 mkdir -p /mnt/boot /mnt/nix
 mount "$DISK_BOOT_PARTITION" /mnt/boot
-mount "$DISK_NIX_PARTITION" /mnt/nix
+mount "$DISK_ROOT_PARTITION" /mnt/
 
 echo
 echo "Mounts complete:"
 findmnt /mnt/boot
-findmnt /mnt/nix
+findmnt /mnt/

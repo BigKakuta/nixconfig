@@ -24,22 +24,15 @@
               };
             };
             nix = {
-              name = "nix";
+              name = "/";
               size = "100%";
               content = {
                 type = "filesystem";
                 format = "ext4";
-                mountpoint = "/nix";
+                mountpoint = "/";
               };
             };
           };
-        };
-      };
-
-      nodev = {
-        "/" = {
-          fsType = "tmpfs";
-          mountOptions = [ "size=25%" "mode=755" ];
         };
       };
     };
