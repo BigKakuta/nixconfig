@@ -21,13 +21,13 @@ users.users.nixos = {
       openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBulB722y+drb1c3bRGJXkGIjVF/bWYfYd2NzXCo4Y5H danielmeyer@d5m4.com"
       ];
-      services.openssh.passwordAuthentication = false;
     };
 
     security.sudo.wheelNeedsPassword = false;
     nixpkgs.config.allowUnfree = true;
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
     services.openssh.enable = true;
+    services.openssh.passwordAuthentication = false;
     system.stateVersion = "26.05";
   };
 }
