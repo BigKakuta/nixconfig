@@ -46,7 +46,7 @@ echo "Partitioning disk..."
 parted $DISK -- mklabel gpt
 parted $DISK -- mkpart ESP fat32 1MiB 512MiB
 parted $DISK -- set 1 boot on
-parted $DISK -- mkpart Root 512MiB 100%
+parted $DISK -- mkpart root 512MiB 100%
 echo -e "\033[32mDisk partitioned successfully.\033[0m"
 
 echo
