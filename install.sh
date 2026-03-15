@@ -43,22 +43,17 @@ lsblk "$DISK"
 
 echo
 echo "Partitioning disk..."
-sgdisk --zap-all "$DISK"
-sgdisk -n 1:1MiB:+1MiB -t 1:ef02 -c 1:"disk-main-boot" "$DISK"
-sgdisk -n 2:0:+512MiB -t 2:ef00 -c 2:"disk-main-ESP" "$DISK"
-sgdisk -n 3:0:0 -t 3:8300 -c 3:"disk-main-root" "$DISK"
-
-echo
-echo "Partitioning complete."
-echo "Updated disk layout:"
-lsblk "$DISK"
-sgdisk -p "$DISK"
+parted $DISK -- mklabel gpt
+parted $DISK -- mkpart ESP fat32 1MiB 512MiB
+parted $DISK -- set 1 boot on
+parted $DISK -- mkpart Root 512MiB 100%
+echo -e "\033[32mDisk partitioned successfully.\033[0m"
 
 echo
 echo "Creating filesystems..."
 mkfs.fat -F32 -n boot "$DISK_BOOT_PARTITION"
 mkfs.ext4 -F -L root "$DISK_ROOT_PARTITION"
-
+sleep 2
 echo
 echo "Mounting filesystems..."
 mount "$DISK_ROOT_PARTITION" /mnt/
