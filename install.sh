@@ -15,9 +15,8 @@
 set -euo pipefail
 
 DISK="/dev/nvme0n1"
-DISK_BIOS_PARTITION="/dev/nvme0n1p1"
-DISK_BOOT_PARTITION="/dev/nvme0n1p2"
-DISK_ROOT_PARTITION="/dev/nvme0n1p4"
+DISK_BOOT_PARTITION="/dev/nvme0n1p1"
+DISK_ROOT_PARTITION="/dev/nvme0n1p2"
 
 if [ "$(uname)" != "Linux" ]; then
   echo "This script only supports Linux."
@@ -58,15 +57,14 @@ sgdisk -p "$DISK"
 echo
 echo "Creating filesystems..."
 mkfs.fat -F32 -n boot "$DISK_BOOT_PARTITION"
-mkfs.ext4 -F -L nix "$DISK_ROOT_PARTITION"
+mkfs.ext4 -F -L root "$DISK_ROOT_PARTITION"
 
 echo
 echo "Mounting filesystems..."
-mkdir -p /mnt/boot /mnt/nix
-mount "$DISK_BOOT_PARTITION" /mnt/boot
 mount "$DISK_ROOT_PARTITION" /mnt/
-
+mkdir -p /mnt/boot 
+mount "$DISK_BOOT_PARTITION" /mnt/boot
 echo
 echo "Mounts complete:"
-findmnt /mnt/boot
 findmnt /mnt/
+findmnt /mnt/boot

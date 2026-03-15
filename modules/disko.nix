@@ -7,11 +7,6 @@
         content = {
           type = "gpt";
           partitions = {
-            boot = {
-              name = "boot";
-              size = "1M";
-              type = "EF02";
-            };
             esp = {
               name = "ESP";
               size = "512M";
@@ -23,7 +18,7 @@
                 mountOptions = [ "umask=0077" ];
               };
             };
-            nix = {
+            root = {
               name = "/";
               size = "100%";
               content = {
