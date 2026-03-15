@@ -20,6 +20,7 @@ users.users.nixos = {
       extraGroups = [ "wheel" ];
       openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBulB722y+drb1c3bRGJXkGIjVF/bWYfYd2NzXCo4Y5H danielmeyer@d5m4.com"
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAiKUL3sPap8Q+gRoGpqg51kbu7EFIQ3KVQF4r3kq7DO danielemeyer@d5m4.com"
       ];
     };
 
