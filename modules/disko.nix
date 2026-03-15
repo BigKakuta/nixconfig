@@ -19,7 +19,7 @@
               };
             };
             root = {
-              name = "/";
+              name = "Root";
               size = "100%";
               content = {
                 type = "filesystem";
