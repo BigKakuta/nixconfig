@@ -20,7 +20,7 @@
             };
             root = {
               name = "root";
-              end = "-16G"
+              end = "-16G";
               content = {
                 type = "filesystem";
                 format = "ext4";
