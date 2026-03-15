@@ -11,7 +11,7 @@
   flake.nixosModules.myMachineModule = { ... }: {
   imports = [
 	inputs.disko.nixosModules.disko
-	self.diskoConfigurations.myMachineModule
+	self.diskoConfigurations.baseModule
   ];
 boot.loader.systemd-boot.enable = true;
 boot.loader.efi.canTouchEfiVariables = true;   
@@ -21,6 +21,7 @@ users.users.nixos = {
       openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBulB722y+drb1c3bRGJXkGIjVF/bWYfYd2NzXCo4Y5H danielmeyer@d5m4.com"
       ];
+      services.openssh.passwordAuthentication = false;
     };
 
     security.sudo.wheelNeedsPassword = false;
