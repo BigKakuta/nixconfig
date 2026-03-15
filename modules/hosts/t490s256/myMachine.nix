@@ -27,7 +27,7 @@ users.users.nixos = {
     nixpkgs.config.allowUnfree = true;
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
     services.openssh.enable = true;
-    services.openssh.passwordAuthentication = false;
+    services.openssh.PasswordAuthentication = false;
     system.stateVersion = "26.05";
   };
 }
