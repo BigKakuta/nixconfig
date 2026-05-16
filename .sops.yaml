@@ -1,0 +1,11 @@
+keys:
+  - &users:
+    - &ta age14052k8ggfs383n3y5q3dqktka36qmsyf096s22nuxtngwrrwscxq4wwqvu
+  - &hosts:
+    - &bigguy age1ztt8yl2adq6g3tyld09jwwycaas5l5w6lxrxmlzzag4hh92c9p9sfv565y
+creation_rules:
+  - path_regex: secrets.yaml$
+    key_groups:
+      - age:
+        - *ta
+        - *bigguy
