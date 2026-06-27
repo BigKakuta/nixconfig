@@ -11,6 +11,7 @@
   flake.darwinModules.mbpM4 =
     { config, pkgs, ... }:
     {
+
       environment.systemPackages = with pkgs; [
         neovim
         cloc
@@ -38,6 +39,9 @@
         opencode
         codex
         claude-code
+	jdk25
+	htop
+	restic
       ];
 
       nixpkgs.config.allowUnfree = true;
@@ -60,9 +64,27 @@
         taps = builtins.attrNames config.nix-homebrew.taps;
         brews = [ ];
         casks = [
-          "helium"
+          "helium-browser"
           "ghostty"
           "microsoft-excel"
+	  "actual"
+	  "proton-pass"
+	  "protonvpn"
+	  "proton-mail"
+	  "raycast"
+	  "zwift"
+	  "codex-app"
+	  "jetbrains-toolbox"
+	  "cmux"
+          "orbstack"
+	  "t3-code"
+	  "utm"
+	  "logi-options+"
+	  "secretive"
+	  "zed"
+	  "cursor"
+	  "visual-studio-code"
+
         ];
       };
 
@@ -73,6 +95,9 @@
           persistent-apps = [
             "/Applications/Helium.app/"
             "/Applications/Ghostty.app/"
+            "/Applications/cmux.app/"
+	    "/Applications/Zed.app"
+	    "/Application/Codex.app"
           ];
         };
         NSGlobalDomain = {
@@ -80,7 +105,6 @@
           "com.apple.keyboard.fnState" = true;
         };
         CustomSystemPreferences."com.apple.Accessibility".ReduceMotionEnabled = 1;
-        universalaccess.reduceMotion = true;
         finder = {
           NewWindowTarget = "Computer";
           QuitMenuItem = true;

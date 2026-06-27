@@ -1,7 +1,7 @@
 { inputs, ... }: {
 
-  flake.nixosConfigurations.installer = inputs.nixpkgs.lib.nixosSystem {
-    system = "x86_64-linux";
+  flake.nixosConfigurations.installerArm = inputs.nixpkgs.lib.nixosSystem {
+    system = "aarch64-linux";
     modules = [
       "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
       ({ ... }: {
@@ -10,7 +10,6 @@
           extraGroups = [ "wheel" ];
           openssh.authorizedKeys.keys = [
             "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBulB722y+drb1c3bRGJXkGIjVF/bWYfYd2NzXCo4Y5H danielmeyer@d5m4.com"
-	    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII8ESeE1YkOQEhBSwlvHvobLlTXXxSgPD/J6dWYqTG4H daniel-mbp"
           ];
         };
 
